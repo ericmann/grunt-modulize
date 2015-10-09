@@ -73,7 +73,7 @@ grunt.initConfig({
  * 2015-10-08   v1.0.0   Initial release
 
 ## License
-Copyright © 2015 [Eric Mann](https://eamann.com. Licensed under the MIT license.
+Copyright © 2015 [Eric Mann](https://eamann.com). Licensed under the MIT license.
 
 [npm-image]: https://badge.fury.io/js/grunt-modulize.svg
 [npm-url]: https://npmjs.org/package/grunt-modulize
