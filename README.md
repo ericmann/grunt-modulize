@@ -70,7 +70,7 @@ grunt.initConfig({
 ```
 
 ## Release History
-_(Nothing yet)_
+ * 2015-10-08   v1.0.0   Initial release
 
 ## License
 Copyright © 2015 [Eric Mann](https://eamann.com. Licensed under the MIT license.
