@@ -8,44 +8,50 @@
 
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function( grunt ) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+	// Please see the Grunt documentation for more information regarding task
+	// creation: http://gruntjs.com/creating-tasks
 
-  grunt.registerMultiTask('modulize', 'Browserify and Factor-Bundle plugin for Grunt.', function () {
+	grunt.registerMultiTask( 'modulize', 'Browserify and Factor-Bundle plugin for Grunt.', function() {
+		var done = this.async();
 
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
-    });
+		var path = require( 'path' ),
+			fs = require( 'fs' ),
+			browserify = require( 'browserify' ),
+			factor = require( 'factor-bundle' );
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function (file) {
-      // Concat specified files.
-      var src = file.src.filter(function (filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
-          return false;
-        } else {
-          return true;
-        }
-      }).map(function (filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+		var entries = [],
+			output = [],
+			outputPath = this.data.output;
 
-      // Handle options.
-      src += options.punctuation;
+		this.data.modules.forEach( function( file ) {
+			grunt.log.writeln( 'Adding `' + file + '` to bundle ...' );
+			entries.push( file );
 
-      // Write the destination file.
-      grunt.file.write(file.dest, src);
+			var filename = path.basename( file );
+			output.push( path.join( outputPath, filename ) );
+		} );
 
-      // Print a success message.
-      grunt.log.writeln('File "' + file.dest + '" created.');
-    });
-  });
+		var bundle = browserify( {
+			entries: entries
+		} );
 
+		// Group common dependencies
+		// -o outputs the entry files without the common dependencies
+		bundle.plugin( 'factor-bundle', {
+			o: output
+		} );
+
+		// Create Write Stream
+		var dest = fs.createWriteStream( this.data.bundle );
+
+		// Bundle
+		var stream = bundle.bundle().pipe( dest ).on( 'close', function() {
+			// Print a success message.
+			grunt.log.writeln( 'Bundle created.' );
+
+			done();
+		} );
+	} );
 };

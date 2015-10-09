@@ -33,21 +33,13 @@ module.exports = function (grunt) {
 
     // Configuration to be run (and then tested).
     modulize: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
+      all: {
+        modules: [
+          'test/fixtures/first.js',
+          'test/fixtures/second.js'
+        ],
+        output: './test/expected/js',
+        bundle: './test/expected/common.js'
       }
     },
 
