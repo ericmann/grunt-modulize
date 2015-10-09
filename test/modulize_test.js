@@ -27,21 +27,25 @@ exports.modulize = {
     // setup here if necessary
     done();
   },
-  default_options: function (test) {
+  common_bundle: function (test) {
     test.expect(1);
 
-    var actual = grunt.file.read('tmp/default_options');
-    var expected = grunt.file.read('test/expected/default_options');
-    test.equal(actual, expected, 'should describe what the default behavior is.');
+    var actual = grunt.file.read('tmp/common.js');
+    var expected = grunt.file.read('test/expected/common.js');
+    test.equal(actual, expected, 'should produce a common bundle.');
 
     test.done();
   },
-  custom_options: function (test) {
-    test.expect(1);
+  individual_scripts: function (test) {
+    test.expect(2);
 
-    var actual = grunt.file.read('tmp/custom_options');
-    var expected = grunt.file.read('test/expected/custom_options');
-    test.equal(actual, expected, 'should describe what the custom option(s) behavior is.');
+    var first = grunt.file.read('tmp/js/first.js');
+    var first_expected = grunt.file.read('test/expected/js/first.js');
+    test.equal(first, first_expected, 'should produce a Browserified version of `first.js`.');
+
+    var second = grunt.file.read('tmp/js/second.js');
+    var second_expected = grunt.file.read('test/expected/js/second.js');
+    test.equal(second, second_expected, 'should produce a Browserified version of `second.js`.');
 
     test.done();
   }
