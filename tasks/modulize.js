@@ -8,6 +8,19 @@
 
 'use strict';
 
+/**
+ * Module Dependencies
+ */
+var path = require( 'path' ),
+	fs = require( 'fs.extra' ),
+	browserify = require( 'browserify' ),
+	factor = require( 'factor-bundle' );
+
+/**
+ * Export the module.
+ * 
+ * @param grunt
+ */
 module.exports = function( grunt ) {
 
 	// Please see the Grunt documentation for more information regarding task
@@ -16,15 +29,14 @@ module.exports = function( grunt ) {
 	grunt.registerMultiTask( 'modulize', 'Browserify and Factor-Bundle plugin for Grunt.', function() {
 		var done = this.async();
 
-		var path = require( 'path' ),
-			fs = require( 'fs.extra' ),
-			browserify = require( 'browserify' ),
-			factor = require( 'factor-bundle' );
-
+		/**
+		 * Local variables
+		 */
 		var entries = [],
 			output = [],
 			outputPath = this.data.output;
 
+		// Set up the inputs and outputs for our bundle files.
 		this.data.modules.forEach( function( file ) {
 			grunt.log.writeln( 'Adding `' + file + '` to bundle ...' );
 			entries.push( file );
@@ -37,6 +49,7 @@ module.exports = function( grunt ) {
 		fs.mkdirRecursiveSync( this.data.output );
 		fs.mkdirRecursiveSync( path.dirname( this.data.bundle ) );
 
+		// Build our bundle
 		var bundle = browserify( {
 			entries: entries
 		} );
