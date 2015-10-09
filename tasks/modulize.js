@@ -17,7 +17,7 @@ module.exports = function( grunt ) {
 		var done = this.async();
 
 		var path = require( 'path' ),
-			fs = require( 'fs' ),
+			fs = require( 'fs.extra' ),
 			browserify = require( 'browserify' ),
 			factor = require( 'factor-bundle' );
 
@@ -33,6 +33,10 @@ module.exports = function( grunt ) {
 			output.push( path.join( outputPath, filename ) );
 		} );
 
+		// Make sure output directories exist
+		fs.mkdirRecursiveSync( this.data.output );
+		fs.mkdirRecursiveSync( path.dirname( this.data.bundle ) );
+
 		var bundle = browserify( {
 			entries: entries
 		} );
@@ -46,12 +50,14 @@ module.exports = function( grunt ) {
 		// Create Write Stream
 		var dest = fs.createWriteStream( this.data.bundle );
 
-		// Bundle
-		var stream = bundle.bundle().pipe( dest ).on( 'close', function() {
-			// Print a success message.
-			grunt.log.writeln( 'Bundle created.' );
+		// Once the destination file is present, write it.
+		dest.on( 'open', function() {
+			bundle.bundle().pipe( dest ).on( 'close', function() {
+				// Print a success message.
+				grunt.log.writeln( 'Bundle created.' );
 
-			done();
+				done();
+			} );
 		} );
 	} );
 };

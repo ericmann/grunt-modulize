@@ -38,8 +38,8 @@ module.exports = function (grunt) {
           'test/fixtures/first.js',
           'test/fixtures/second.js'
         ],
-        output: './test/expected/js',
-        bundle: './test/expected/common.js'
+        output: 'tmp/js',
+        bundle: 'tmp/common.js'
       }
     },
 
