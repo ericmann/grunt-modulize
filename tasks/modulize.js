@@ -18,7 +18,7 @@ var path = require( 'path' ),
 
 /**
  * Export the module.
- * 
+ *
  * @param grunt
  */
 module.exports = function( grunt ) {
