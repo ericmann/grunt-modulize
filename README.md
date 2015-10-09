@@ -1,4 +1,4 @@
-# grunt-modulize
+# grunt-modulize [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
 > Browserify and Factor-Bundle plugin for Grunt.
 
@@ -25,68 +25,59 @@ In your project's Gruntfile, add a section named `modulize` to the data object p
 ```js
 grunt.initConfig({
   modulize: {
-    options: {
-      // Task-specific options go here.
-    },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
-  },
+    modules: [],
+    output: '',
+    bundle: ''
+  }
 })
 ```
 
 ### Options
 
-#### options.separator
+#### modules
+Type: `Array`
+
+Files to be parsed by Browserify
+
+#### output
 Type: `String`
-Default value: `',  '`
 
-A string value that is used to do something with whatever.
+Path where bundled scripts should be placed.
 
-#### options.punctuation
+#### bundle
 Type: `String`
-Default value: `'.'`
 
-A string value that is used to do something else with whatever else.
+Filename for the generated common script bundle.
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+Identify any modules you want Browserified in the `modules` section, map the final output directory in `output`, and identify the output of the common bundle script in `bundle`.
+
+Any missing directories identified by `output` or `bundle` will be created dynamically by Grunt.
 
 ```js
 grunt.initConfig({
   modulize: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
+    all: {
+      modules: [
+        'assets/js/src/first.js',
+        'assets/js/src/second.js'
+      ],
+      output: 'assets/js',
+      bundle: 'assets/js/common.js'
+  }
 })
 ```
-
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
-
-```js
-grunt.initConfig({
-  modulize: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
-    },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
-})
-```
-
-## Contributing
-In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
 _(Nothing yet)_
 
 ## License
-Copyright (c) 2015 Eric Mann. Licensed under the MIT license.
+Copyright © 2015 [Eric Mann](https://eamann.com. Licensed under the MIT license.
+
+[npm-image]: https://badge.fury.io/js/grunt-modulize.svg
+[npm-url]: https://npmjs.org/package/grunt-modulize
+[travis-image]: https://travis-ci.org/ericmann/grunt-modulize.svg?branch=master
+[travis-url]: https://travis-ci.org/ericmann/grunt-modulize
+[daviddm-image]: https://david-dm.org/ericmann/grunt-modulize.svg?theme=shields.io
+[daviddm-url]: https://david-dm.org/ericmann/grunt-modulize
