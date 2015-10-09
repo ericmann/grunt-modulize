@@ -70,6 +70,7 @@ grunt.initConfig({
 ```
 
 ## Release History
+ * 2015-10-08   v1.0.1   Fix dependencies
  * 2015-10-08   v1.0.0   Initial release
 
 ## License

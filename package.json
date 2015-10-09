@@ -1,6 +1,6 @@
 {
   "name": "grunt-modulize",
-  "version": "0.1.0",
+  "version": "1.0.1",
   "description": "Browserify and Factor-Bundle plugin for Grunt.",
   "homepage": "https://github.com/ericmann/grunt-modulize",
   "repository": "git@github.com:ericmann/grunt-modulize.git",
