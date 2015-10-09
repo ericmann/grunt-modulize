@@ -56,7 +56,7 @@ module.exports = function( grunt ) {
 
 		// Group common dependencies
 		// -o outputs the entry files without the common dependencies
-		bundle.plugin( 'factor-bundle', {
+		bundle.plugin( factor, {
 			o: output
 		} );
 
