@@ -10,7 +10,9 @@
     "url": "https://eamann.com"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "browserify",
+    "factor-bundle"
   ],
   "main": "Gruntfile.js",
   "engines": {
